@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<div class="container-fluid">
+   <div id="flowManagerDialogue" class="modal fade" role="dialog">
+     <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+          <div class="modal-body">
+            <ul class="main_block">
+
+               <li class="has_child parent_block add_blick_list" id="block_1">
+                  <i class="fas fa-arrow-alt-right"></i> 
+                  <span class="title">Project Initiation</span>
+                  <div class="block_options">
+                   <a href="#" class="addNewBlock">Add Below</a> | <a href="#" class="move">Move</a> | <a href="#" class="deleteBlock">Delete</a>
+                  </div>
+                  <ul class="sub_block has_child">
+                  </ul>
+               </li>
+
+               <li class="has_child parent_block add_blick_list" id="block_2">
+                  <i class="fas fa-arrow-alt-right"></i> 
+                  <span class="title">Completion</span>
+                  <div class="block_options">
+                   <a href="#" class="addNewBlock">Add Below</a> | <a href="#" class="move">Move</a> | <a href="#" class="deleteBlock">Delete</a>
+                  </div>
+                  <ul class="sub_block has_child">
+                  </ul>
+               </li>
+            </ul>
+         </div>
+      
+
+      <div class="modal-footer">
+         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" onclick="obj.saveToJson()" class="btn btn-primary">Save</button>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script type="text/javascript">
+  
+
+</script>
+{% endblock %}

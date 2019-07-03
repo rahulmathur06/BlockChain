@@ -1,0 +1,119 @@
+      
+// var data = [
+//     {"id": "Project Initiation",
+//     "child":[{
+//         "id":"child_1",
+//         "child":[
+//         {
+//             "id":"child_1_1",
+//             "child":[{
+//                 "id":"child_1_1_1",
+//                 "child": {}
+
+//             },
+//             {
+//                 "id":"child_1_1_2",
+//                 "child": {}
+//             }]
+
+//         },
+//         {
+//             "id":"child_1_2",
+//             "child": {}
+
+//         },
+//         {
+//             "id":"child_1_3",
+//             "child": {}
+
+//         },
+//         {
+//             "id":"child_1_4",
+//             "child": {}
+//         }]
+//     },
+//     {
+//         "id":"child_2",
+//         "child":[
+//         {
+//             "id":"child_2_1",
+//             "child":[{
+//                 "id":"child_2_1_1",
+//                 "child": {}
+//             }]
+
+//         },
+//         {
+//             "id":"child_2_2",
+//             "child": {}
+
+//         },
+//         {
+//             "id":"child_2_3",
+//             "child": {}
+
+//         }]
+//     }
+//  ]
+// }] 
+
+// localStorage.setItem('data', JSON.stringify(data));
+
+//       $('.parent_block').each(function(){
+//         var user= $(this)
+        
+//         var ul = user.find(".sub_block")
+
+//         var block_code= user.find(".title").text()
+        
+//         var objects =  JSON.parse(localStorage.getItem('data'));
+//         var string = []
+      
+//         for(var i = 0 ; i < objects.length; i++){
+//            var id = objects[i].id
+           
+//             if(block_code == id){
+               
+               
+//                if(objects[i].child.length != 0){
+//                   string = child_lists(objects[i].child,string,objects[i].id, block_code)
+//                } 
+//             }
+            
+//          }
+//          var data = ""
+//           $.each(string, function(key, value){
+//             data += value 
+//           })
+
+//           console.log(ul)
+//         $(ul).append(data);
+//       })
+      
+//       function child_lists(objects, string, id, block_code=null){
+         
+//          for(var i = 0 ; i < objects.length; i++){
+           
+//             if(objects[i].child.length != undefined){
+               
+//                string.push('<li id="'+objects[i].id+'" class=""><i class="fas fa-arrow-alt-right"></i> <a href="#">Child</a>')
+//                // console.log(string)
+//                string.push('<ul class="sub_block sub_list">')
+//                child_lists(objects[i].child, string, objects[i].id);
+               
+//             }else{
+
+//                list_item = '<li id="'+objects[i].id+'"><i class="fas fa-arrow-alt-right"></i> <a href="#">Home 1</a></li>'
+//                string.push(list_item)
+//             }
+
+//          }
+
+//          if(block_code != id){
+//             string.push('</ul><span class="submenu-btn"></span>')
+//             string.push('</li>')
+//          }
+            
+//          return string
+
+//       }
