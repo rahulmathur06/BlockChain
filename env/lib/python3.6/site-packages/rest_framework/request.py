@@ -10,6 +10,7 @@ The wrapped request then offers a richer API, in particular :
 """
 from __future__ import unicode_literals
 
+import io
 import sys
 from contextlib import contextmanager
 
@@ -278,10 +279,11 @@ class Request(object):
             else:
                 self._full_data = self._data
 
-            # copy data & files refs to the underlying request so that closable
-            # objects are handled appropriately.
-            self._request._post = self.POST
-            self._request._files = self.FILES
+            # if a form media type, copy data & files refs to the underlying
+            # http request so that closable objects are handled appropriately.
+            if is_form_media_type(self.content_type):
+                self._request._post = self.POST
+                self._request._files = self.FILES
 
     def _load_stream(self):
         """
@@ -300,7 +302,7 @@ class Request(object):
         elif not self._request._read_started:
             self._stream = self._request
         else:
-            self._stream = six.BytesIO(self.body)
+            self._stream = io.BytesIO(self.body)
 
     def _supports_form_parsing(self):
         """

@@ -23,7 +23,7 @@ class JSONEncoder(json.JSONEncoder):
     """
     def default(self, obj):
         # For Date Time string spec, see ECMA 262
-        # http://ecma-international.org/ecma-262/5.1/#sec-15.9.1.15
+        # https://ecma-international.org/ecma-262/5.1/#sec-15.9.1.15
         if isinstance(obj, Promise):
             return force_text(obj)
         elif isinstance(obj, datetime.datetime):
@@ -47,7 +47,7 @@ class JSONEncoder(json.JSONEncoder):
             return six.text_type(obj)
         elif isinstance(obj, QuerySet):
             return tuple(obj)
-        elif isinstance(obj, six.binary_type):
+        elif isinstance(obj, bytes):
             # Best-effort for binary blobs. See #4187.
             return obj.decode('utf-8')
         elif hasattr(obj, 'tolist'):

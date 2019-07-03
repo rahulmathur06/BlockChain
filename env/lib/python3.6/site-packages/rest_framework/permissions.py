@@ -4,12 +4,80 @@ Provides a set of pluggable permission policies.
 from __future__ import unicode_literals
 
 from django.http import Http404
+from django.utils import six
 
 from rest_framework import exceptions
 
 SAFE_METHODS = ('GET', 'HEAD', 'OPTIONS')
 
 
+class OperationHolderMixin:
+    def __and__(self, other):
+        return OperandHolder(AND, self, other)
+
+    def __or__(self, other):
+        return OperandHolder(OR, self, other)
+
+    def __rand__(self, other):
+        return OperandHolder(AND, other, self)
+
+    def __ror__(self, other):
+        return OperandHolder(OR, other, self)
+
+
+class OperandHolder(OperationHolderMixin):
+    def __init__(self, operator_class, op1_class, op2_class):
+        self.operator_class = operator_class
+        self.op1_class = op1_class
+        self.op2_class = op2_class
+
+    def __call__(self, *args, **kwargs):
+        op1 = self.op1_class(*args, **kwargs)
+        op2 = self.op2_class(*args, **kwargs)
+        return self.operator_class(op1, op2)
+
+
+class AND:
+    def __init__(self, op1, op2):
+        self.op1 = op1
+        self.op2 = op2
+
+    def has_permission(self, request, view):
+        return (
+            self.op1.has_permission(request, view) &
+            self.op2.has_permission(request, view)
+        )
+
+    def has_object_permission(self, request, view, obj):
+        return (
+            self.op1.has_object_permission(request, view, obj) &
+            self.op2.has_object_permission(request, view, obj)
+        )
+
+
+class OR:
+    def __init__(self, op1, op2):
+        self.op1 = op1
+        self.op2 = op2
+
+    def has_permission(self, request, view):
+        return (
+            self.op1.has_permission(request, view) |
+            self.op2.has_permission(request, view)
+        )
+
+    def has_object_permission(self, request, view, obj):
+        return (
+            self.op1.has_object_permission(request, view, obj) |
+            self.op2.has_object_permission(request, view, obj)
+        )
+
+
+class BasePermissionMetaclass(OperationHolderMixin, type):
+    pass
+
+
+@six.add_metaclass(BasePermissionMetaclass)
 class BasePermission(object):
     """
     A base class from which all permission classes should inherit.
@@ -46,7 +114,7 @@ class IsAuthenticated(BasePermission):
     """
 
     def has_permission(self, request, view):
-        return request.user and request.user.is_authenticated
+        return bool(request.user and request.user.is_authenticated)
 
 
 class IsAdminUser(BasePermission):
@@ -55,7 +123,7 @@ class IsAdminUser(BasePermission):
     """
 
     def has_permission(self, request, view):
-        return request.user and request.user.is_staff
+        return bool(request.user and request.user.is_staff)
 
 
 class IsAuthenticatedOrReadOnly(BasePermission):
@@ -64,7 +132,7 @@ class IsAuthenticatedOrReadOnly(BasePermission):
     """
 
     def has_permission(self, request, view):
-        return (
+        return bool(
             request.method in SAFE_METHODS or
             request.user and
             request.user.is_authenticated
