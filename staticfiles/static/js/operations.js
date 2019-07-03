@@ -222,7 +222,7 @@ $.ajax('/load-blocks',   // request url
             string.push('</li>')
          }
          return string
-
+          obj.loadSortable()
       }
 
 $(document).on("click", ".delete_block", function(){
