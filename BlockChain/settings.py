@@ -76,7 +76,14 @@ WSGI_APPLICATION = 'BlockChain.wsgi.application'
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(conn_max_age=600)
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'd7ba3q199o3ckm',
+        'USER': 'qsfmphmjitlkxj',
+        'PASSWORD': '88b68475feaafa4dfe88bfc162010c2c1162a1fab243bc7c06955c4d0492ee56',
+        'HOST': 'ec2-174-129-227-51.compute-1.amazonaws.com',
+        'PORT': '5432',
+    }
 }
 
 
