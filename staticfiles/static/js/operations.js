@@ -144,7 +144,7 @@ sub_block = '<li class="has_child hassub" parent_id="{0}" id="{1}">\
 <div class="block_options">\
 <a href="#" class="addNewBlock">Add Below</a> | \
 <a href="#" class="move">Move</a> |\
-<a href="#" class="delete_block">Delete</a></div>\
+<a href="#" class="delete_block deleteBlock">Delete</a></div>\
 <ul class="sub_block has_child"></ul>\
 <span class="submenu-btn"></span>\
 </li>';
@@ -215,7 +215,7 @@ list_item = '<li class="has_child hassub" id="{0}">\
             <div class="block_options">\
             <a href="#" class="addNewBlock">Add Below</a> | \
             <a href="#" class="move">Move</a> |\
-            <a href="#" class="delete_block">Delete</a></div><ul class="sub_block has_child">';
+            <a href="#" class="delete_block deleteBlock">Delete</a></div><ul class="sub_block has_child">';
  function child_lists(objects, string, id, block_code=null){
          
          for(var i = 0 ; i < objects.length; i++){
