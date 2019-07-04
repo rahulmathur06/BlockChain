@@ -152,7 +152,8 @@ $(document).on("click",".addNewBlock",function(e) {
     ul.append(sub_block.fixture(parent_id, new_id)); 
     obj.loadSortable()
 })
-
+var success = false;
+$.when(
 $.ajax('/load-blocks',   // request url
     {
         success: function (data, status, xhr) {// success callback function
@@ -182,8 +183,14 @@ $.ajax('/load-blocks',   // request url
                   })
                 $(ul).append(list_data);
               })
+            obj.loadSortable()
             }
-});
+})).then(function(){
+    if(success) //if its success then call this initializations
+          {
+            obj.loadSortable()
+          }
+})
  function child_lists(objects, string, id, block_code=null){
          
          for(var i = 0 ; i < objects.length; i++){
@@ -222,7 +229,7 @@ $.ajax('/load-blocks',   // request url
             string.push('</li>')
          }
          return string
-          obj.loadSortable()
+          
       }
 
 $(document).on("click", ".delete_block", function(){
