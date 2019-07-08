@@ -133,7 +133,7 @@ sub_block = '<li class="has_child hassub" parent_id="{0}" id="{1}">\
 <button type="button" class="btn btn-gray"><i class="fal fa-cube"></i> Block</button>\
 <button type="button" class="btn btn-lightblue"><i class="fal fa-code-branch"></i> Branch</button>\
 <button type="button" class="btn btn-lightgreen"><i class="fal fa-database"></i> Embedded Data</button>\
-<button type="button" class="btn btn-lightpink"><i class="far fa-retweet"></i> Randomiser</button>\
+<button type="button" class="btn btn-lightpink randomiser"><i class="far fa-retweet"></i> Randomiser</button>\
 <button type="button" class="btn btn-lightblue"><i class="far fa-wifi"></i> Web Service</button>\
 <button type="button" class="btn btn-lightblue"><i class="fas fa-folder"></i> Group</button>\
 <button type="button" class="btn btn-lightblue"><i class="fas fa-lock"></i> Authenticator</button>\
@@ -204,7 +204,7 @@ list_item = '<li class="has_child hassub" id="{0}">\
             <button type="button" class="btn btn-gray"><i class="fal fa-cube"></i> Block</button>\
             <button type="button" class="btn btn-lightblue"><i class="fal fa-code-branch"></i> Branch</button>\
             <button type="button" class="btn btn-lightgreen"><i class="fal fa-database"></i> Embedded Data</button>\
-            <button type="button" class="btn btn-lightpink"><i class="far fa-retweet"></i> Randomiser</button>\
+            <button type="button" class="btn btn-lightpink randomiser"><i class="far fa-retweet "></i> Randomiser</button>\
             <button type="button" class="btn btn-lightblue"><i class="far fa-wifi"></i> Web Service</button>\
             <button type="button" class="btn btn-lightblue"><i class="fas fa-folder"></i> Group</button>\
             <button type="button" class="btn btn-lightblue"><i class="fas fa-lock"></i> Authenticator</button>\
@@ -216,7 +216,10 @@ list_item = '<li class="has_child hassub" id="{0}">\
             <a href="#" class="addNewBlock">Add Below</a> | \
             <a href="#" class="move">Move</a> |\
             <a href="#" class="delete_block deleteBlock">Delete</a></div><ul class="sub_block has_child">';
+ 
+
  function child_lists(objects, string, id, block_code=null){
+    
          
          for(var i = 0 ; i < objects.length; i++){
             if(objects[i].sub_blocks != undefined){
@@ -237,4 +240,5 @@ list_item = '<li class="has_child hassub" id="{0}">\
 $(document).on("click", ".delete_block", function(){
     $(this).closest('div').closest("li").remove();
    })
+
 
