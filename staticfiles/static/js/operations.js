@@ -243,7 +243,4 @@ $(document).on("click", ".randomiser", function(){
 $(document).on("click", ".randomiser_close", function(){
     $("#randimiser_form").hide()
    })
-// $(document).on("click", ".randomiser", function(){
-//     $("#randimiser_form").modal("show")
-    
-//    })
+
