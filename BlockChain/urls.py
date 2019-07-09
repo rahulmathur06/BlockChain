@@ -17,10 +17,10 @@ from django.urls import path,re_path
 from blocks.views import BlockChainView, SaveBlockInformationApiView, GetBlockInformationApiView
 from django.views.static import serve
 from django.conf import settings
-
+from django.conf.urls.static import static
 urlpatterns = [
     path("", BlockChainView.as_view()),
     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
     path('update-blocks', SaveBlockInformationApiView.as_view(), name='update_data'),
     path('load-blocks', GetBlockInformationApiView.as_view(), name="load_data")
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
