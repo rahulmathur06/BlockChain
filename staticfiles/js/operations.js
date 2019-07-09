@@ -126,20 +126,20 @@ Operations.extend({
 var obj = new Operations()
 obj.loadSortable()
 // sub block template for runtime append
-
+ 
 sub_block = '<li class="has_child hassub" parent_id="{0}" id="{1}">\
 <i class="fas fa-arrow-alt-right"></i> <span class="title">What do you want to add?</span>\
 <div class="button-block">\
-<button type="button" class="btn btn-gray randomiser"><i class="fal fa-cube"></i> Block</button>\
-<button type="button" class="btn btn-lightblue randomiser"><i class="fal fa-code-branch"></i> Branch</button>\
-<button type="button" class="btn btn-lightgree randomiser"><i class="fal fa-database"></i> Embedded Data</button>\
+<button type="button" class="btn btn-gray block"><i class="fal fa-cube"></i> Block</button>\
+<button type="button" class="btn btn-lightblue branch"><i class="fal fa-code-branch"></i> Branch</button>\
+<button type="button" class="btn btn-lightgree embedded_data"><i class="fal fa-database"></i> Embedded Data</button>\
 <button type="button" class="btn btn-lightpink randomiser"><i class="far fa-retweet"></i> Randomiser</button>\
-<button type="button" class="btn btn-lightblue randomiser"><i class="far fa-wifi"></i> Web Service</button>\
-<button type="button" class="btn btn-lightblue randomiser"><i class="fas fa-folder"></i> Group</button>\
-<button type="button" class="btn btn-lightblue randomiser"><i class="fas fa-lock"></i> Authenticator</button>\
-<button type="button" class="btn btn-error randomiser"><i class="fas fa-exclamation-triangle"></i> End of Survey</button>\
-<button type="button" class="btn btn-lightpink randomiser"><i class="fal fa-file-alt"></i> Reference Survey</button>\
-<button type="button" class="btn btn-lightblue randomiser"><i class="far fa-list-alt"></i> Table of Contents</button>\
+<button type="button" class="btn btn-lightblue web_service"><i class="far fa-wifi"></i> Web Service</button>\
+<button type="button" class="btn btn-lightblue group"><i class="fas fa-folder"></i> Group</button>\
+<button type="button" class="btn btn-lightblue authenticator"><i class="fas fa-lock"></i> Authenticator</button>\
+<button type="button" class="btn btn-error end_of_survey"><i class="fas fa-exclamation-triangle"></i> End of Survey</button>\
+<button type="button" class="btn btn-lightpink reference_survey"><i class="fal fa-file-alt"></i> Reference Survey</button>\
+<button type="button" class="btn btn-lightblue table_of_contents"><i class="far fa-list-alt"></i> Table of Contents</button>\
 </div>\
 <div class="block_options">\
 <a href="#" class="addNewBlock">Add Below</a> | \
@@ -149,6 +149,7 @@ sub_block = '<li class="has_child hassub" parent_id="{0}" id="{1}">\
 <span class="submenu-btn"></span>\
 </li>';
 
+
 // Add new sub clock
 
 $(document).on("click",".addNewBlock",function(e) {
@@ -157,11 +158,15 @@ $(document).on("click",".addNewBlock",function(e) {
     ul.removeClass('open').addClass('open')
     ul.next().addClass('active');
     child_counter = ul.children('li').length
-    console.log(child_counter)
+    
     var parent_id = $(ul).parent().attr('id')
     var new_id = parent_id + '_sub_block_' + child_counter
     ul.append(sub_block.fixture(parent_id, new_id)); 
     obj.loadSortable()
+})
+$(document).on("click",".randomiser",function(e) {
+    console.log($(this).closest('li'))
+    
 })
 var success = false;
 $.when(
@@ -201,21 +206,23 @@ $.ajax('/load-blocks',   // request url
 list_item = '<li class="has_child hassub" id="{0}">\
             <i class="fas fa-arrow-alt-right"></i> <span class="title">What do you want to add?</span>\
             <div class="button-block">\
-            <button type="button" class="btn btn-gray randomiser"><i class="fal fa-cube"></i> Block</button>\
-            <button type="button" class="btn btn-lightblue randomiser"><i class="fal fa-code-branch"></i> Branch</button>\
-            <button type="button" class="btn btn-lightgreen randomiser"><i class="fal fa-database"></i> Embedded Data</button>\
+            <button type="button" class="btn btn-gray block"><i class="fal fa-cube"></i> Block</button>\
+            <button type="button" class="btn btn-lightblue branch"><i class="fal fa-code-branch"></i> Branch</button>\
+            <button type="button" class="btn btn-lightgree embedded_data"><i class="fal fa-database"></i> Embedded Data</button>\
             <button type="button" class="btn btn-lightpink randomiser"><i class="far fa-retweet"></i> Randomiser</button>\
-            <button type="button" class="btn btn-lightblue randomiser"><i class="far fa-wifi"></i> Web Service</button>\
-            <button type="button" class="btn btn-lightblue randomiser"><i class="fas fa-folder"></i> Group</button>\
-            <button type="button" class="btn btn-lightblue randomiser"><i class="fas fa-lock"></i> Authenticator</button>\
-            <button type="button" class="btn btn-error randomiser"><i class="fas fa-exclamation-triangle"></i> End of Survey</button>\
-            <button type="button" class="btn btn-lightpink randomiser"><i class="fal fa-file-alt"></i> Reference Survey</button>\
-            <button type="button" class="btn btn-lightblue randomiser"><i class="far fa-list-alt"></i> Table of Contents</button>\
-            </div>\
+            <button type="button" class="btn btn-lightblue web_service"><i class="far fa-wifi"></i> Web Service</button>\
+            <button type="button" class="btn btn-lightblue group"><i class="fas fa-folder"></i> Group</button>\
+            <button type="button" class="btn btn-lightblue authenticator"><i class="fas fa-lock"></i> Authenticator</button>\
+            <button type="button" class="btn btn-error end_of_survey"><i class="fas fa-exclamation-triangle"></i> End of Survey</button>\
+            <button type="button" class="btn btn-lightpink reference_survey"><i class="fal fa-file-alt"></i> Reference Survey</button>\
+            <button type="button" class="btn btn-lightblue table_of_contents"><i class="far fa-list-alt"></i> Table of Contents</button>\
             <div class="block_options">\
             <a href="#" class="addNewBlock">Add Below</a> | \
             <a href="#" class="move">Move</a> |\
             <a href="#" class="delete_block deleteBlock">Delete</a></div><ul class="sub_block has_child">';
+
+
+
  function child_lists(objects, string, id, block_code=null){
          
          for(var i = 0 ; i < objects.length; i++){
@@ -237,10 +244,10 @@ list_item = '<li class="has_child hassub" id="{0}">\
 $(document).on("click", ".delete_block", function(){
     $(this).closest('div').closest("li").remove();
    })
-$(document).on("click", ".randomiser", function(){
-    $("#randimiser_form").show()
-   })
-$(document).on("click", ".randomiser_close", function(){
-    $("#randimiser_form").hide()
-   })
+// $(document).on("click", ".randomiser", function(){
+//     $("#randimiser_form").show()
+//    })
+// $(document).on("click", ".randomiser_close", function(){
+//     $("#randimiser_form").hide()
+//    })
 

@@ -229,44 +229,33 @@ ul{
   border: 1px solid #87010e;
 }
 
-#randimiser_form .modal-lg{
-  max-width: 800px !important;
-}
-#randimiser_form .modal-content{
+.main_block .sub_block li.randomiser_sub_block{
   background-color: #f1e2f1;
   border: 1px solid #8f608f;
-  margin-top: 30px;
+  margin-top: 0;
 }
-#randimiser_form .modal-content .block_options{
+.main_block .sub_block li.randomiser_sub_block .block_description{
   width: 100%;
   text-align: left;
-  padding-left: 0;
-  margin-top: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-top: 5px;
   font-size: 12px;
+  float: left;
 }
-#randimiser_form .modal-content span.title{
-  font-size: 20px;
-}
-#randimiser_form .modal-content span.title i{
+.main_block .sub_block li.randomiser_sub_block span.title i{
   background-color: #8f608f;
   color: #fff;
   padding: 5px 5px;
   border-radius: 5px;
 }
-#randimiser_form .modal-content .close-btn{
-  font-size: 14px;
-  padding: 0;
-  background-color: transparent;
-  border: none;
-  position: absolute;
-  right: 15px;
-  top: 15px;
-}
-#randimiser_form .modal-content .qty{
+.main_block .sub_block li.randomiser_sub_block .qty{
   width: 40px;
   text-align: center;
 }
-
+.main_block .sub_block li .block_options{
+  padding-right: 15px;
+}
 
 
 
