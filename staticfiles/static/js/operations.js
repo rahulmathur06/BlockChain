@@ -154,6 +154,7 @@ randomiser_text = '<i class="fas fa-arrow-alt-right"></i>\
 $(document).on("click",".addNewBlock",function(e) {
     e.preventDefault();
     ul =  $(this).closest('li').find('ul:eq(0)')
+    $("<span class='submenu-btn'></span>").insertAfter(ul);
     ul.removeClass('open').addClass('open')
     ul.next().addClass('active');
     child_counter = ul.children('li').length
@@ -264,11 +265,10 @@ $.ajax('/load-blocks',   // request url
                 
                string.push(list_tag.fixture(objects[i].id, objects[i].block_type))
                string.push(sub_block_item)
-               string.push('</ul><span class="submenu-btn"></span></li>')
+               string.push('</ul></li>')
             }
          }
-         console.log(main_block_id)
-         console.log(current_id)
+         
          if(main_block_id != current_id){
             string.push('</ul><span class="submenu-btn"></span>')
             string.push('</li>')
