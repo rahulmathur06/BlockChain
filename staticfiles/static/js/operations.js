@@ -104,11 +104,14 @@ Operations.extend({
             tolerance: "pointer",
             cursor: "move",
             dropOnEmpty: true,
+            placeholder: "highlight",
             change: function( event, ui ) {
             // Any event that required to perform on bloch position change
             },
 
         });
+
+
     }
 })
 
@@ -154,7 +157,12 @@ randomiser_text = '<i class="fas fa-arrow-alt-right"></i>\
 $(document).on("click",".addNewBlock",function(e) {
     e.preventDefault();
     ul =  $(this).closest('li').find('ul:eq(0)')
-    $("<span class='submenu-btn'></span>").insertAfter(ul);
+    if($(ul).next().is("span")){
+        console.log("11")
+    }else{
+        $("<span class='submenu-btn'></span>").insertAfter(ul);
+    }
+    
     ul.removeClass('open').addClass('open')
     ul.next().addClass('active');
     child_counter = ul.children('li').length
