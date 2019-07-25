@@ -229,12 +229,12 @@ ul{
   border: 1px solid #87010e;
 }
 
-.main_block .sub_block li.randomiser_sub_block{
+.main_block .sub_block li.RAND{
   background-color: #f1e2f1;
   border: 1px solid #8f608f;
   margin-top: 0;
 }
-.main_block .sub_block li.randomiser_sub_block .block_description{
+.main_block .sub_block li.RAND .block_description{
   width: 100%;
   text-align: left;
   padding-left: 15px;
@@ -243,13 +243,13 @@ ul{
   font-size: 12px;
   float: left;
 }
-.main_block .sub_block li.randomiser_sub_block span.title i{
+.main_block .sub_block li.RAND span.title i{
   background-color: #8f608f;
   color: #fff;
   padding: 5px 5px;
   border-radius: 5px;
 }
-.main_block .sub_block li.randomiser_sub_block .qty{
+.main_block .sub_block li.RAND .qty{
   width: 40px;
   text-align: center;
 }

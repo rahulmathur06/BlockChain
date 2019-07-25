@@ -105,8 +105,13 @@ Operations.extend({
             cursor: "move",
             dropOnEmpty: true,
             placeholder: "highlight",
-            change: function( event, ui ) {
-            // Any event that required to perform on bloch position change
+            start: function (event, ui) {
+                // console.log(ui.item.parent())
+                // if (ui.item.hasClass("ui-sortable")) {
+                //     console.log("yes")
+                //     ui.item.parent().addClass("open");
+                // }
+
             },
 
         });
@@ -118,9 +123,8 @@ Operations.extend({
 var obj = new Operations()
 obj.loadSortable()
 // sub block template for runtime append
-
-sub_block = '<li class="has_child hassub" data-block-type="new_block" parent_id="{0}" id="{1}">\
-<i class="fas fa-arrow-alt-right"></i> <span class="title">What do you want to add?</span>\
+list_tag='<li class="has_child hassub {1}"  id="{0}" data-block-type="{1}">'
+sub_block = '<i class="fas fa-arrow-alt-right"></i> <span class="title">What do you want to add?</span>\
 <div class="button-block">\
 <button type="button" class="btn btn-gray block"><i class="fal fa-cube"></i> Block</button>\
 <button type="button" class="btn btn-lightblue branch"><i class="fal fa-code-branch"></i> Branch</button>\
@@ -137,9 +141,9 @@ sub_block = '<li class="has_child hassub" data-block-type="new_block" parent_id=
 <a href="#" class="addNewBlock">Add Below</a> | \
 <a href="#" class="move">Move</a> |\
 <a href="#" class="delete_block deleteBlock">Delete</a></div>\
-<ul class="sub_block has_child"></ul>\
-<span class="submenu-btn"></span>\
-</li>';
+<ul class="sub_block has_child ">'
+
+// end_sub_block='</ul></li>';
 
 randomiser_text = '<i class="fas fa-arrow-alt-right"></i>\
                   <span class="title"><i class="far fa-retweet"></i> Randomiser</span>\
@@ -150,15 +154,15 @@ randomiser_text = '<i class="fas fa-arrow-alt-right"></i>\
                     <a href="#" class="addNewBlock">Add Below</a> | \
                     <a href="#" class="move">Move</a> |\
                     <a href="#" class="delete_block deleteBlock">Delete</a></div>\
-                    <ul class="sub_block has_child"></ul>\
-                    <span class="submenu-btn"></span>'
+                    <ul class="sub_block has_child ">'
+                  
 // Add new sub clock
 
 $(document).on("click",".addNewBlock",function(e) {
     e.preventDefault();
     ul =  $(this).closest('li').find('ul:eq(0)')
     if($(ul).next().is("span")){
-        console.log("11")
+        
     }else{
         $("<span class='submenu-btn'></span>").insertAfter(ul);
     }
@@ -166,52 +170,66 @@ $(document).on("click",".addNewBlock",function(e) {
     ul.removeClass('open').addClass('open')
     ul.next().addClass('active');
     child_counter = ul.children('li').length
-    console.log(child_counter)
     var parent_id = $(ul).parent().attr('id')
-    var new_id = parent_id + '_sub_block_' + child_counter
-    ul.append(sub_block.fixture(parent_id, new_id)); 
+    var new_id = parent_id + '_B' + child_counter
+    new_bl = list_tag.fixture(new_id,'OPT')+sub_block+'</ul></li>'
+    ul.append(new_bl); 
+    
+    console.log(ul.html())
     obj.loadSortable()
 })
 
 $(document).on("click",".randomiser",function(e) {
     var li = $(this).closest('li')
-    console.log($(this).closest('li'))
+    var ul_content = $(li).find('ul').html()
     $(li).html(randomiser_text);
-     $(li).addClass('randomiser_sub_block')
-    $(li).attr('data-block-type','randomiser_sub_block')
+    $(li).append('</ul');
+    $(li).find('ul').html(ul_content)
+    $(li).addClass('RAND')
+    $(li).attr('data-block-type','RAND')
+    if($(li).find('ul:first').children().length>0){
+        $(li).find('ul:first').removeClass('open').addClass('open')
+        $(li).find('ul:first').after('<span class="submenu-btn active"></span>');
+        // $(li).find('span:first').addClass('active')
+    }
+    
+    $(li).attr('data-block-type','RAND')
     
 })
 
-list_tag='<li class="has_child hassub {1}"  id="{0}" data-block-type="{1}">'
+$(document).on("click", ".delete_block", function(){
+    $(this).closest('div').closest("li").remove();
+   })
+// list_tag='<li class="has_child hassub {1}"  id="{0}" data-block-type="{1}">'
 
-sub_block_item = '<i class="fas fa-arrow-alt-right"></i> <span class="title">What do you want to add?</span>\
-                    <div class="button-block">\
-                    <button type="button" class="btn btn-gray block"><i class="fal fa-cube"></i> Block</button>\
-                    <button type="button" class="btn btn-lightblue branch"><i class="fal fa-code-branch"></i> Branch</button>\
-                    <button type="button" class="btn btn-lightgree embedded_data"><i class="fal fa-database"></i> Embedded Data</button>\
-                    <button type="button" class="btn btn-lightpink randomiser"><i class="far fa-retweet"></i> Randomiser</button>\
-                    <button type="button" class="btn btn-lightblue web_service"><i class="far fa-wifi"></i> Web Service</button>\
-                    <button type="button" class="btn btn-lightblue group"><i class="fas fa-folder"></i> Group</button>\
-                    <button type="button" class="btn btn-lightblue authenticator"><i class="fas fa-lock"></i> Authenticator</button>\
-                    <button type="button" class="btn btn-error end_of_survey"><i class="fas fa-exclamation-triangle"></i> End of Survey</button>\
-                    <button type="button" class="btn btn-lightpink reference_survey"><i class="fal fa-file-alt"></i> Reference Survey</button>\
-                    <button type="button" class="btn btn-lightblue table_of_contents"><i class="far fa-list-alt"></i> Table of Contents</button>\
-                    </div>\
-                    <div class="block_options">\
-                    <a href="#" class="addNewBlock">Add Below</a> | \
-                    <a href="#" class="move">Move</a> |\
-                    <a href="#" class="delete_block deleteBlock">Delete</a></div><ul class="sub_block has_child">';
+// sub_block_item = '<i class="fas fa-arrow-alt-right"></i> <span class="title">What do you want to add?</span>\
+//                     <div class="button-block">\
+//                     <button type="button" class="btn btn-gray block"><i class="fal fa-cube"></i> Block</button>\
+//                     <button type="button" class="btn btn-lightblue branch"><i class="fal fa-code-branch"></i> Branch</button>\
+//                     <button type="button" class="btn btn-lightgree embedded_data"><i class="fal fa-database"></i> Embedded Data</button>\
+//                     <button type="button" class="btn btn-lightpink randomiser"><i class="far fa-retweet"></i> Randomiser</button>\
+//                     <button type="button" class="btn btn-lightblue web_service"><i class="far fa-wifi"></i> Web Service</button>\
+//                     <button type="button" class="btn btn-lightblue group"><i class="fas fa-folder"></i> Group</button>\
+//                     <button type="button" class="btn btn-lightblue authenticator"><i class="fas fa-lock"></i> Authenticator</button>\
+//                     <button type="button" class="btn btn-error end_of_survey"><i class="fas fa-exclamation-triangle"></i> End of Survey</button>\
+//                     <button type="button" class="btn btn-lightpink reference_survey"><i class="fal fa-file-alt"></i> Reference Survey</button>\
+//                     <button type="button" class="btn btn-lightblue table_of_contents"><i class="far fa-list-alt"></i> Table of Contents</button>\
+//                     </div>\
+//                     <div class="block_options">\
+//                     <a href="#" class="addNewBlock">Add Below</a> | \
+//                     <a href="#" class="move">Move</a> |\
+//                     <a href="#" class="delete_block deleteBlock">Delete</a></div><ul class="sub_block has_child ">';
 
-randomiser_block = '<i class="fas fa-arrow-alt-right"></i>\
-                      <span class="title"><i class="far fa-retweet"></i> Randomiser</span>\
-                      <div class="block_description">\
-                       Randomly present <button class="minus"><i class="fas fa-minus-circle"></i></button> <input type="text" class="qty" value="0"> <button class="plus"><i class="fas fa-plus-circle"></i></button> of the following elemenys <input type="checkbox" class="check"> Evenly present Elements\
-                      </div>\
-                      <div class="block_options">\
-                        <a href="#" class="addNewBlock">Add Below</a> | \
-                        <a href="#" class="move">Move</a> |\
-                        <a href="#" class="delete_block deleteBlock">Delete</a></div>\
-                        <ul class="sub_block has_child">'
+// randomiser_block = '<i class="fas fa-arrow-alt-right"></i>\
+//                       <span class="title"><i class="far fa-retweet"></i> Randomiser</span>\
+//                       <div class="block_description">\
+//                        Randomly present <button class="minus"><i class="fas fa-minus-circle"></i></button> <input type="text" class="qty" value="0"> <button class="plus"><i class="fas fa-plus-circle"></i></button> of the following elemenys <input type="checkbox" class="check"> Evenly present Elements\
+//                       </div>\
+//                       <div class="block_options">\
+//                         <a href="#" class="addNewBlock">Add Below</a> | \
+//                         <a href="#" class="move">Move</a> |\
+//                         <a href="#" class="delete_block deleteBlock">Delete</a></div>\
+//                         <ul class="sub_block has_child ">'
 
 var success = false;
 $.when(
@@ -261,18 +279,19 @@ $.ajax('/load-blocks',   // request url
 
                 if(objects[i].block_type=="randomiser_sub_block"){
 
-                    string.push(randomiser_block)
+                    string.push(randomiser_text)
 
                 }else{
                     
-                    string.push(sub_block_item)
+                    string.push(sub_block)
                 }
                
                child_lists(objects[i].sub_blocks, string, objects[i].id,main_block_id);
             }else{
                 
                string.push(list_tag.fixture(objects[i].id, objects[i].block_type))
-               string.push(sub_block_item)
+               string.push(sub_block)
+
                string.push('</ul></li>')
             }
          }
@@ -285,16 +304,4 @@ $.ajax('/load-blocks',   // request url
          return string
     }
 
-$(document).on("click", ".delete_block", function(){
-    $(this).closest('div').closest("li").remove();
-   })
-$(document).on("click", ".randomiser", function(){
-    $("#randimiser_form").show()
-   })
-$(document).on("click", ".randomiser_close", function(){
-    $("#randimiser_form").hide()
-   })
-// $(document).on("click", ".randomiser", function(){
-//     $("#randimiser_form").modal("show")
-    
-//    })
+

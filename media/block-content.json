@@ -1,1 +1,1 @@
-[{"id":"block_1","block_type":"initiation_block","sub_blocks":[{"id":"block_1_sub_block_0","block_type":"new_block","sub_blocks":[{"id":"block_1_sub_block_0_sub_block_0","block_type":"randomiser_sub_block"}]}]}]
+[{"id":"B1","block_type":"INIT","sub_blocks":[{"id":"B1_B0","block_type":"RAND","sub_blocks":[{"id":"B1_B0_B0","block_type":"RAND","sub_blocks":[{"id":"B1_B0_B0_B0","block_type":"OPT"},{"id":"B1_B0_B0_B1","block_type":"OPT"}]},{"id":"B1_B0_B1","block_type":"RAND"}]}]}]
