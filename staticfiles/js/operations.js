@@ -106,12 +106,7 @@ Operations.extend({
             dropOnEmpty: true,
             placeholder: "highlight",
             start: function (event, ui) {
-                // console.log(ui.item.parent())
-                // if (ui.item.hasClass("ui-sortable")) {
-                //     console.log("yes")
-                //     ui.item.parent().addClass("open");
-                // }
-
+               
             },
 
         });
@@ -174,8 +169,6 @@ $(document).on("click",".addNewBlock",function(e) {
     var new_id = parent_id + '_B' + child_counter
     new_bl = list_tag.fixture(new_id,'OPT')+sub_block+'</ul></li>'
     ul.append(new_bl); 
-    
-    console.log(ul.html())
     obj.loadSortable()
 })
 
@@ -236,7 +229,6 @@ $.when(
 $.ajax('/load-blocks',   // request url
     {
         success: function (data, status, xhr) {// success callback function
-            console.log(data.data)
            $('.main_block').children('li').each(function(){
                 var block= $(this)
                 var ul = block.find(".sub_block")
@@ -278,7 +270,7 @@ $.ajax('/load-blocks',   // request url
                 string.push(list_tag.fixture(objects[i].id, objects[i].block_type))
 
                 if(objects[i].block_type=="RAND"){
-                    
+
                     string.push(randomiser_text)
 
                 }else{

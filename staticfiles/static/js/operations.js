@@ -265,25 +265,21 @@ $.ajax('/load-blocks',   // request url
  function child_lists(objects, string, current_id, main_block_id){
          
          for(var i = 0 ; i < objects.length; i++){
-            if(objects[i].sub_blocks != undefined){
 
-                string.push(list_tag.fixture(objects[i].id, objects[i].block_type))
-
-                if(objects[i].block_type=="RAND"){
-
+            string.push(list_tag.fixture(objects[i].id, objects[i].block_type))
+               // string.push(sub_block)
+               if(objects[i].block_type=="RAND"){
+                    
                     string.push(randomiser_text)
 
                 }else{
                     
                     string.push(sub_block)
                 }
-               
+
+            if(objects[i].sub_blocks != undefined){
                child_lists(objects[i].sub_blocks, string, objects[i].id,main_block_id);
             }else{
-                
-               string.push(list_tag.fixture(objects[i].id, objects[i].block_type))
-               string.push(sub_block)
-
                string.push('</ul></li>')
             }
          }
