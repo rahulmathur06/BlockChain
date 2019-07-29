@@ -277,8 +277,8 @@ $.ajax('/load-blocks',   // request url
 
                 string.push(list_tag.fixture(objects[i].id, objects[i].block_type))
 
-                if(objects[i].block_type=="randomiser_sub_block"){
-
+                if(objects[i].block_type=="RAND"){
+                    
                     string.push(randomiser_text)
 
                 }else{
